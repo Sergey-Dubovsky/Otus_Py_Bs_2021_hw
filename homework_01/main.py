@@ -61,7 +61,6 @@ def filter_numbers(list_of_numbers,operation):
                 if num % 2 == 0 :  
                     result_list.append(num)
         else:
-            pass
             if operation == PRIME:
                 for num in list_of_numbers:
                     if is_prime(num) :  
