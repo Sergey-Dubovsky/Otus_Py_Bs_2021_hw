@@ -65,6 +65,8 @@ def filter_numbers(list_of_numbers,operation):
                 for num in list_of_numbers:
                     if is_prime(num) :  
                         result_list.append(num)
-
+            else:
+                #Если операция задана неверно, возвращать None
+                result_list=None
     return result_list
 
