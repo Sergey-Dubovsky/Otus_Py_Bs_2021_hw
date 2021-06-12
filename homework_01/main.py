@@ -20,20 +20,53 @@ def power_numbers(list_of_numbers):
 
 
 
-# # filter types
-# ODD = "odd"
-# EVEN = "even"
-# PRIME = "prime"
+# filter types
+ODD = "odd"
+EVEN = "even"
+PRIME = "prime"
+
+# Функция проверки числа на простое/непростое
+def is_prime(num):
+    res=True
+
+    for i in range(2,num-1):
+        if num % i == 0:
+            res=False
+            break
+
+    return res        
 
 
-# def filter_numbers():
-#     """
-#     функция, которая на вход принимает список из целых чисел,
-#     и возвращает только чётные/нечётные/простые числа
-#     (выбор производится передачей дополнительного аргумента)
+def filter_numbers(list_of_numbers,operation):
+    """
+    функция, которая на вход принимает список из целых чисел,
+    и возвращает только чётные/нечётные/простые числа
+    (выбор производится передачей дополнительного аргумента)
 
-#     >>> filter_numbers([1, 2, 3], ODD)
-#     <<< [1, 3]
-#     >>> filter_numbers([2, 3, 4, 5], EVEN)
-#     <<< [2, 4]
-#     """
+    >>> filter_numbers([1, 2, 3], ODD)
+    <<< [1, 3]
+    >>> filter_numbers([2, 3, 4, 5], EVEN)
+    <<< [2, 4]
+    """
+
+    result_list=[]
+
+    if operation == ODD:
+        for num in list_of_numbers:
+            if num % 2 != 0 :  
+                result_list.append(num)
+    else:
+        if operation == EVEN:
+            for num in list_of_numbers:
+                if num % 2 == 0 :  
+                    result_list.append(num)
+        else:
+            pass
+            if operation == PRIME:
+                for num in list_of_numbers:
+                    if is_prime(num) :  
+                        result_list.append(num)
+
+    return result_list
+
+print(filter_numbers([1,2,3,4,45,23,67,9,2338,0,3,6,5,6],PRIME))
