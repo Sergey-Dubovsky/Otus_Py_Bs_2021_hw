@@ -4,7 +4,7 @@
 """
 
 
-def power_numbers(list_of_numbers):
+def power_numbers(*args):
     """
     функция, которая принимает N целых чисел,
     и возвращает список квадратов этих чисел
@@ -13,7 +13,7 @@ def power_numbers(list_of_numbers):
     """
     list_of_square=[]
 
-    for num in list_of_numbers:
+    for num in args:
         list_of_square.append(num**2)
 
     return list_of_square    
@@ -69,4 +69,3 @@ def filter_numbers(list_of_numbers,operation):
 
     return result_list
 
-print(filter_numbers([1,2,3,4,45,23,67,9,2338,0,3,6,5,6],PRIME))
