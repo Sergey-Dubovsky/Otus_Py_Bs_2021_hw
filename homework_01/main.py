@@ -49,22 +49,14 @@ def filter_numbers(list_of_numbers,operation):
     <<< [2, 4]
     """
 
-    result_list=[]
-
     if operation == ODD:
-        for num in list_of_numbers:
-            if num % 2 != 0 :  
-                result_list.append(num)
+        result_list=list(filter(lambda num: num % 2 != 0,list_of_numbers))
     else:
         if operation == EVEN:
-            for num in list_of_numbers:
-                if num % 2 == 0 :  
-                    result_list.append(num)
+            result_list=list(filter(lambda num: num % 2 == 0,list_of_numbers))
         else:
             if operation == PRIME:
-                for num in list_of_numbers:
-                    if is_prime(num) :  
-                        result_list.append(num)
+                result_list=list(filter(is_prime,list_of_numbers))
             else:
                 #Если операция задана неверно, возвращать None
                 result_list=None
