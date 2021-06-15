@@ -62,4 +62,3 @@ def filter_numbers(list_of_numbers,operation):
                 result_list=None
     return result_list
 
-#
