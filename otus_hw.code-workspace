@@ -5,7 +5,12 @@
 		},
 		{
 			"path": "..\\BasePython"
+		},
+		{
+			"path": "..\\BasePython\\lessons"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"pythonTestExplorer.testFramework": "pytest"
+	}
 }
