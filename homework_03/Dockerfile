@@ -1,3 +1,6 @@
+# Запуск контейнера 
+# docker run -p8080:8000 web-app
+
 FROM python:3.9.6-buster
 
 WORKDIR /web-app
