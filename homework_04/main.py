@@ -14,35 +14,22 @@
 """
 
 import asyncio
-# from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
+from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 
 from aiohttp import ClientSession
 
-USERS_DATA_URL = "https://jsonplaceholder.typicode.com/users"
-POSTS_DATA_URL = "https://jsonplaceholder.typicode.com/posts"
-
-async def fetch_json(session: ClientSession, url: str) -> dict:
-    async with session.get(url) as response:
-        return await response.json()
-
-async def fetch_users_data() -> dict:
-    async with ClientSession() as session:
-        return await fetch_json(session, USERS_DATA_URL)
-
-async def fetch_posts_data() -> dict:
-    async with ClientSession() as session:
-        return await fetch_json(session, POSTS_DATA_URL)
 
 async def async_main():
-
 
     users_data, posts_data = await asyncio.gather(
         fetch_users_data(),
         fetch_posts_data(),
     )
-    # print (users_data)
-    print (posts_data)
+    
+    print(users_data)
+    print(posts_data)
 
 if __name__ == '__main__':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     asyncio.run(async_main())
     
