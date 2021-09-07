@@ -40,7 +40,8 @@ async def async_main():
         fetch_users_data(),
         fetch_posts_data(),
     )
-
+    # print (users_data)
+    print (posts_data)
 
 if __name__ == '__main__':
     asyncio.run(async_main())
