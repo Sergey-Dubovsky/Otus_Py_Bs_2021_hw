@@ -15,19 +15,57 @@
 
 import asyncio
 from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
+from models import Base,User,Post,engine,async_session
 
-from aiohttp import ClientSession
+async def create_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        print("Created tables")
 
+async def create_users(user_data):
+    users=[]
+    for user in user_data:
+        users.append(
+            User(
+                id=user['id'], 
+                name=user['name'], 
+                username=user['username'], 
+                email=user['email']
+                )
+            )
+
+    async with async_session() as session:
+        async with session.begin():
+            session.add_all(users)
+
+async def create_posts(post_data):
+    posts=[]
+    for post in post_data:
+        posts.append(
+            Post(
+                id=post['id'], 
+                title=post['title'], 
+                body=post['body'], 
+                user_id=post['userId']
+                )
+            )
+
+    async with async_session() as session:
+        async with session.begin():
+            session.add_all(posts)
 
 async def async_main():
+
+    await create_tables()
 
     users_data, posts_data = await asyncio.gather(
         fetch_users_data(),
         fetch_posts_data(),
     )
-    
-    print(users_data)
-    print(posts_data)
+
+    await create_users(users_data)
+    await create_posts(posts_data)
+
 
 if __name__ == '__main__':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
