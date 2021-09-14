@@ -23,36 +23,32 @@ async def create_tables():
         print("Created tables")
 
 async def create_users(user_data):
-    users=[]
-    for user in user_data:
-        users.append(
-            User(
-                id=user['id'], 
-                name=user['name'], 
-                username=user['username'], 
-                email=user['email']
-                )
-            )
-
     async with async_session() as session:
         async with session.begin():
-            session.add_all(users)
+            for user in user_data:
+                session.add(
+                    User(
+                        id=user['id'], 
+                        name=user['name'], 
+                        username=user['username'], 
+                        email=user['email']
+                        )
+                    )
+
 
 async def create_posts(post_data):
-    posts=[]
-    for post in post_data:
-        posts.append(
-            Post(
-                id=post['id'], 
-                title=post['title'], 
-                body=post['body'], 
-                user_id=post['userId']
-                )
-            )
-
     async with async_session() as session:
         async with session.begin():
-            session.add_all(posts)
+            for post in post_data:
+                session.add(
+                    Post(
+                        id=post['id'], 
+                        title=post['title'], 
+                        body=post['body'], 
+                        user_id=post['userId']
+                        )
+                    )
+
 
 async def async_main():
 
