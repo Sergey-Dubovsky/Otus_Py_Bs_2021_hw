@@ -1,21 +1,6 @@
-"""
-Домашнее задание №3
-Асинхронная работа с сетью и бд
-
-доработайте функцию main, по вызову которой будет выполняться полный цикл программы
-(добавьте туда выполнение асинхронной функции async_main):
-- создание таблиц (инициализация)
-- загрузка пользователей и постов
-    - загрузка пользователей и постов должна выполняться конкурентно (параллельно)
-      при помощи asyncio.gather (https://docs.python.org/3/library/asyncio-task.html#running-tasks-concurrently)
-- добавление пользователей и постов в базу данных
-  (используйте полученные из запроса данные, передайте их в функцию для добавления в БД)
-- закрытие соединения с БД
-"""
-
 import asyncio
 from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
-from models import Base,User,Post,engine,Session
+from models import Base,User,Post,engine,session
 
 async def create_tables():
     async with engine.begin() as conn:
@@ -23,7 +8,7 @@ async def create_tables():
         print("Created tables")
 
 async def create_users(user_data):
-    async with Session() as sess:
+    async with session() as sess:
         async with sess.begin():
             for user in user_data:
                 sess.add(
@@ -37,7 +22,7 @@ async def create_users(user_data):
 
 
 async def create_posts(post_data):
-    async with Session() as sess:
+    async with session() as sess:
         async with sess.begin():
             for post in post_data:
                 sess.add(
