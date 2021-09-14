@@ -15,7 +15,7 @@
 
 import asyncio
 from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
-from models import Base,User,Post,engine,async_session
+from models import Base,User,Post,engine,session
 
 async def create_tables():
     async with engine.begin() as conn:
@@ -23,10 +23,10 @@ async def create_tables():
         print("Created tables")
 
 async def create_users(user_data):
-    async with async_session() as session:
-        async with session.begin():
+    async with session() as sess:
+        async with sess.begin():
             for user in user_data:
-                session.add(
+                sess.add(
                     User(
                         id=user['id'], 
                         name=user['name'], 
@@ -37,10 +37,10 @@ async def create_users(user_data):
 
 
 async def create_posts(post_data):
-    async with async_session() as session:
-        async with session.begin():
+    async with session() as sess:
+        async with sess.begin():
             for post in post_data:
-                session.add(
+                sess.add(
                     Post(
                         id=post['id'], 
                         title=post['title'], 
