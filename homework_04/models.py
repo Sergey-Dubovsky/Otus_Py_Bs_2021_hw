@@ -33,7 +33,7 @@ Base = declarative_base(bind=engine, cls=Base)
 
 # expire_on_commit=False will prevent attributes from being expired
 # after commit.
-session = sessionmaker(
+Session = sessionmaker(
     engine,
     expire_on_commit=False,
     class_=AsyncSession,
