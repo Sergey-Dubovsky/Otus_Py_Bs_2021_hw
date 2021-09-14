@@ -54,7 +54,7 @@ class User(TimestampMixin, Base):
     username = Column(String(32), unique=True)
     email = Column(String(50), unique=True)
     
-    post = relationship("Post", back_populates="user", uselist=False)
+    posts = relationship("Post", back_populates="user", uselist=False)
 
     def __str__(self):
         return (
@@ -73,7 +73,7 @@ class Post(TimestampMixin, Base):
     status = Column(String(10), nullable=False, default="draft", server_default="draft")
 
     user_id = Column(Integer, ForeignKey("hw04_users.id"), nullable=False)
-    user = relationship("User", back_populates="post")
+    user = relationship("User", back_populates="posts")
 
     
     def __str__(self):
