@@ -1,6 +1,7 @@
 import asyncio
 from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 from models import Base,User,Post,engine,Session
+from sys import platform 
 
 async def create_tables():
     async with engine.begin() as conn:
@@ -49,6 +50,9 @@ async def async_main():
 
 
 if __name__ == '__main__':
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    
+    if platform == "win32":
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
     asyncio.run(async_main())
     
