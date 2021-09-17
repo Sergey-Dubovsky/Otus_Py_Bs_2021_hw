@@ -1,4 +1,5 @@
 import asyncio
+from functools import wraps
 from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 from models import Base,User,Post,engine,Session
 from sys import platform 
@@ -8,32 +9,39 @@ async def create_tables():
         await conn.run_sync(Base.metadata.create_all)
         print("Created tables")
 
-async def create_users(user_data):
-    async with Session() as sess:
-        async with sess.begin():
-            for user in user_data:
-                sess.add(
-                    User(
-                        id=user['id'], 
-                        name=user['name'], 
-                        username=user['username'], 
-                        email=user['email']
-                        )
-                    )
 
+async def with_session(func):
+    @wraps(func)
+    async def wrapper(data):
+        async with Session() as sess:
+            async with sess.begin():
+                await func(sess,data)
 
-async def create_posts(post_data):
-    async with Session() as sess:
-        async with sess.begin():
-            for post in post_data:
-                sess.add(
-                    Post(
-                        id=post['id'], 
-                        title=post['title'], 
-                        body=post['body'], 
-                        user_id=post['userId']
-                        )
-                    )
+    return await wrapper()
+
+@with_session
+async def create_users(sess,user_data):
+    for user in user_data:
+        sess.add(
+            User(
+                id=user['id'], 
+                name=user['name'], 
+                username=user['username'], 
+                email=user['email']
+                )
+            )
+
+@with_session
+async def create_posts(sess,post_data):
+    for post in post_data:
+        sess.add(
+            Post(
+                id=post['id'], 
+                title=post['title'], 
+                body=post['body'], 
+                user_id=post['userId']
+                )
+            )
 
 
 async def async_main():
