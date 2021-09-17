@@ -15,9 +15,9 @@ async def with_session(func):
     async def wrapper(data):
         async with Session() as sess:
             async with sess.begin():
-                await func(sess,data)
+                return await func(sess,data)
 
-    return await wrapper()
+    return wrapper
 
 @with_session
 async def create_users(sess,user_data):
