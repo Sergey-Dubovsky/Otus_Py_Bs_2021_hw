@@ -10,7 +10,7 @@ async def create_tables():
         print("Created tables")
 
 
-async def with_session(func):
+def with_session(func):
     @wraps(func)
     async def wrapper(data):
         async with Session() as sess:
