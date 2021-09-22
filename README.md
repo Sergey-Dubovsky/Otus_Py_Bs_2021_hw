@@ -1,4 +1,4 @@
-# Репозиторий для домашних заданий курса OTUS "Python Developer. Basic(https://otus.ru/lessons/python-basic/?int_source=courses_catalog&int_term=programming)"
+# Репозиторий для домашних заданий курса OTUS <code>"Python Developer. Basic" (https://otus.ru/lessons/python-basic/?int_source=courses_catalog&int_term=programming)</code>
 
 Сергей Дубовский.
 
