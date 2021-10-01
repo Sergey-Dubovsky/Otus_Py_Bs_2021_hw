@@ -12,6 +12,7 @@ ujson = "^4.1.0"
 SQLAlchemy = "^1.4.23"
 asyncpg = "^0.24.0"
 psycopg2 = "^2.9.1"
+Flask = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
 
